@@ -1,0 +1,25 @@
+<com.jessewo.statusbardemo.ParallaxDrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#3fdc76"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <com.jessewo.statusbardemo.MainView
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/custom_actionbar" />
+
+    </com.jessewo.statusbardemo.MainView>
+</com.jessewo.statusbardemo.ParallaxDrawerLayout>
