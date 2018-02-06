@@ -8,16 +8,16 @@ import android.widget.TextView;
 
 import com.example.immersedstatusbar.core.StatusBarUtil;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar mToolbar;
-    @Bind(R.id.title)
+    @BindView(R.id.title)
     TextView mTitle;
-    @Bind(R.id.drawer_view)
+    @BindView(R.id.drawer_view)
     ParallaxDrawerLayout mDrawerView;
 
     @Override
