@@ -11,20 +11,23 @@
 
 ### 效果展示
 ##### 1. 对于情况1的显示效果
-<img src="./images/6.0_white.png" width="320" height="600" />
-<br/>
-<img src="./images/6.0_menu_open.png" width="320" height="600" />
+<table>
+<td><img src="./images/6.0_white.png" width="260" height="500" /></td>
+<td><img src="./images/6.0_menu_open.png" width="260" height="500" /></td>
+</table>
 
 ##### 2. 对于情况2的显示效果
 - Android 5.x
-<img src="./images/5.0_white.png" width="320" height="600" />
-<br/>
-<img src="./images/5.0_menu_open.png" width="320" height="600" />
+<table>
+<td><img src="./images/5.0_white.png" width="260" height="500" /></td>
+<td><img src="./images/5.0_menu_open.png" width="260" height="500" /></td>
+</table>
 
 - Android 4.4显示效果
-<img src="./images/4.4_white.png" width="320" height="600" />
-<br/>
-<img src="./images/4.4_menu_open.png" width="320" height="600" />
+<table>
+<td><img src="./images/4.4_white.png" width="260" height="500" /></td>
+<td><img src="./images/4.4_menu_open.png" width="260" height="500" /></td>
+</table>
 
 ##### 3. 对于情况3的显示效果略
 ..
