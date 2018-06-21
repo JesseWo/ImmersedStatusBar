@@ -7,7 +7,9 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+
 import com.example.immersedstatusbar.R;
+
 import static com.example.immersedstatusbar.core.StatusBarUtil.getStatusBarHeight;
 
 /**
@@ -19,12 +21,11 @@ public class AutoPadding {
     private static final String TAG = "AutoPadding";
 
     public static void init(Context context, AttributeSet attrs, View root) {
-        if (isWindowTranslucentStatus(context)) {
-            if (needAutoPadding(context, attrs)) {
-                int height = getStatusBarHeight(context);
-                root.setPadding(root.getPaddingRight(), height + root.getPaddingTop(),
-                        root.getPaddingLeft(), root.getPaddingBottom());
-            }
+        if (isWindowTranslucentStatus(context)
+                && needAutoPadding(context, attrs)) {
+            int height = getStatusBarHeight(context);
+            root.setPadding(root.getPaddingRight(), height + root.getPaddingTop(),
+                    root.getPaddingLeft(), root.getPaddingBottom());
         }
     }
 

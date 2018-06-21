@@ -4,21 +4,21 @@
     android:id="@+id/drawer_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <!--侧拉菜单-->
     <LinearLayout
         android:id="@+id/menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#3fdc76"
         android:orientation="vertical">
-
     </LinearLayout>
 
+    <!--主页面-->
     <com.jessewo.statusbardemo.MainView
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
+        <!--标题栏-->
         <include layout="@layout/custom_actionbar" />
 
     </com.jessewo.statusbardemo.MainView>
