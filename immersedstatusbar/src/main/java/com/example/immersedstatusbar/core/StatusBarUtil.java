@@ -9,8 +9,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.example.immersedstatusbar.R;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
@@ -40,18 +38,20 @@ public class StatusBarUtil {
         transparencyStatusBar(activity);
         //状态栏 文字图标 颜色
         switch (RomUtil.getLightStatusBarAvailableRomType()) {
-            case MIUI:
+            case RomUtil.SupportedRom.MIUI:
                 setMIUILightStatusBar(activity, dark);
-                break;
-            case FLYME:
-                setFlymeLightStatusBar(activity, dark);
-                break;
-            case ANDROID_NATIVE:
+                //MIUI 7.7.13开始使用原生方法
                 setAndroidNativeLightStatusBar(activity, dark);
                 break;
-            case NA:
-                int colorResId = dark ? R.color.status_translucent_color : R.color.transparent;
-                setStatusBarColor(activity, colorResId);
+            case RomUtil.SupportedRom.FLYME:
+                setFlymeLightStatusBar(activity, dark);
+                break;
+            case RomUtil.SupportedRom.ANDROID_NATIVE:
+                setAndroidNativeLightStatusBar(activity, dark);
+                break;
+            case RomUtil.SupportedRom.NA:
+                String colorStr = dark ? "#28000000" : "#00000000";
+                setStatusBarColor(activity, Color.parseColor(colorStr));
                 break;
         }
     }
@@ -110,6 +110,25 @@ public class StatusBarUtil {
     }
 
     /**
+     * OPPO ColorOS
+     *
+     * @param activity
+     * @param lightMode
+     */
+    private static void setColorOSLightStatusBar(Activity activity, boolean lightMode) {
+        Window window = activity.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        int vis = window.getDecorView().getSystemUiVisibility();
+        final int SYSTEM_UI_FLAG_OP_STATUS_BAR_TINT = 0x00000010;
+        if (lightMode) {
+            vis |= SYSTEM_UI_FLAG_OP_STATUS_BAR_TINT;
+        } else {
+            vis &= ~SYSTEM_UI_FLAG_OP_STATUS_BAR_TINT;
+        }
+        window.getDecorView().setSystemUiVisibility(vis);
+    }
+
+    /**
      * Android 6.0 原生
      *
      * @param activity
@@ -158,16 +177,16 @@ public class StatusBarUtil {
      * 修改状态栏颜色，支持4.4以上版本
      *
      * @param activity
-     * @param colorId
+     * @param color
      */
-    private static void setStatusBarColor(Activity activity, int colorId) {
+    private static void setStatusBarColor(Activity activity, int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            activity.getWindow().setStatusBarColor(activity.getResources().getColor(colorId));
+            activity.getWindow().setStatusBarColor(color);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             //使用SystemBarTint库使4.4版本状态栏变色，需要先将状态栏设置为透明
             SystemBarTintManager tintManager = new SystemBarTintManager(activity);
             tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintResource(colorId);
+            tintManager.setStatusBarTintColor(color);
         }
     }
 

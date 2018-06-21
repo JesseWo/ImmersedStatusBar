@@ -7,45 +7,40 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import static com.example.immersedstatusbar.core.RomUtil.SupportedRom.ANDROID_NATIVE;
-import static com.example.immersedstatusbar.core.RomUtil.SupportedRom.FLYME;
-import static com.example.immersedstatusbar.core.RomUtil.SupportedRom.MIUI;
-import static com.example.immersedstatusbar.core.RomUtil.SupportedRom.NA;
-
 /**
  * Created by Jessewo on 2017/7/4.
  * 判断当前Rom类型
- * MIUI Flyme Android M
+ * MIUI , Flyme, Color os, Android M
  */
 
 class RomUtil {
 
-    enum SupportedRom {
-        MIUI,
-        FLYME,
-        ANDROID_NATIVE,
-        NA
+    class SupportedRom {
+        public static final int MIUI = 1;
+        public static final int FLYME = 2;
+        public static final int ANDROID_NATIVE = 3;
+        public static final int NA = 4;
     }
 
     public static boolean isLightStatusBarAvailable() {
         return isMIUIV6OrAbove() || isFlymeV4OrAbove() || isAndroidMOrAbove();
     }
 
-    static SupportedRom getLightStatusBarAvailableRomType() {
+    public static int getLightStatusBarAvailableRomType() {
         //MIUI V6及以上
         if (isMIUIV6OrAbove()) {
-            return MIUI;
+            return SupportedRom.MIUI;
         }
         //Flyme 4.0及以上
         if (isFlymeV4OrAbove()) {
-            return FLYME;
+            return SupportedRom.FLYME;
         }
         //Android 6.0及以上
         if (isAndroidMOrAbove()) {
-            return ANDROID_NATIVE;
+            return SupportedRom.ANDROID_NATIVE;
         }
 
-        return NA;
+        return SupportedRom.NA;
     }
 
     //Flyme V4的displayId格式为 [Flyme OS 4.x.x.xA]
@@ -76,6 +71,33 @@ class RomUtil {
                 }
             } catch (Exception e) {
             }
+        }
+        return false;
+    }
+
+    /**
+     * Android 4.4及其以上和6.0以下的OPPO机型
+     *
+     * @return
+     */
+    private static boolean isColorOsBetweenK_M() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
+                && Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            String brand = Build.BRAND;
+            if (!TextUtils.isEmpty(brand) && brand.contains("OPPO"))
+                return true;
+            String manufacturer = Build.MANUFACTURER;
+            if (!TextUtils.isEmpty(manufacturer) && manufacturer.contains("OPPO"))
+                return true;
+            String fingerprint = Build.FINGERPRINT;
+            if (!TextUtils.isEmpty(fingerprint) && fingerprint.contains("OPPO"))
+                return true;
+            String colorOsVersionNum = getSystemProperty("ro.build.version.opporom");
+            if (!TextUtils.isEmpty(colorOsVersionNum))
+                return true;
+            String colorOsVersion = getSystemProperty("ro.rom.different.version");
+            if (!TextUtils.isEmpty(colorOsVersion) && colorOsVersion.contains("ColorOS"))
+                return true;
         }
         return false;
     }
